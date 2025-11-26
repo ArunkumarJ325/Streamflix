@@ -86,19 +86,19 @@ export default function ProfileSelection() {
 
   return (
     <div
-      className="min-h-screen bg-background flex flex-col items-center justify-center p-8"
+      className="min-h-screen bg-background flex flex-col items-center justify-center p-4 sm:p-6 md:p-8"
       data-testid="profile-selection-page"
     >
       {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-2 text-primary">STREAMFLIX</h1>
-        <h2 className="text-2xl text-foreground">
+      <div className="text-center mb-6 sm:mb-8 md:mb-12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-primary">STREAMFLIX</h1>
+        <h2 className="text-lg sm:text-xl md:text-2xl text-foreground">
           {isManaging ? "Manage Profiles" : "Who's watching?"}
         </h2>
       </div>
 
       {/* Profile Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 mb-12">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12">
         {profiles.map((profile) => (
           <div
             key={profile.id}
@@ -146,7 +146,7 @@ export default function ProfileSelection() {
                 </div>
               )}
             </button>
-            <span className="mt-3 text-lg text-gray-300 group-hover:text-white transition-colors">
+            <span className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-gray-300 group-hover:text-white transition-colors">
               {profile.name}
             </span>
             {profile.isKids && (
@@ -160,12 +160,12 @@ export default function ProfileSelection() {
           <div className="flex flex-col items-center">
             <button
               onClick={() => setIsCreating(true)}
-              className="w-32 h-32 rounded-md border-2 border-dashed border-gray-600 hover:border-gray-400 flex items-center justify-center transition-colors hover-elevate"
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-md border-2 border-dashed border-gray-600 hover:border-gray-400 flex items-center justify-center transition-colors hover-elevate"
               data-testid="button-add-profile"
             >
-              <Plus className="w-12 h-12 text-gray-500" />
+              <Plus className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-500" />
             </button>
-            <span className="mt-3 text-lg text-gray-400">Add Profile</span>
+            <span className="mt-2 sm:mt-3 text-sm sm:text-base md:text-lg text-gray-400">Add Profile</span>
           </div>
         )}
       </div>
@@ -183,17 +183,17 @@ export default function ProfileSelection() {
 
       {/* Create Profile Dialog */}
       <Dialog open={isCreating} onOpenChange={setIsCreating}>
-        <DialogContent className="sm:max-w-md" data-testid="create-profile-dialog">
+        <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto" data-testid="create-profile-dialog">
           <DialogHeader>
             <DialogTitle>Create Profile</DialogTitle>
             <DialogDescription>Add a new profile with a custom name and avatar</DialogDescription>
           </DialogHeader>
-          <div className="space-y-6 py-4">
+          <div className="space-y-4 py-2">
             <div className="flex justify-center">
               <ProfileAvatar
                 avatarIndex={newProfile.avatarIndex}
                 isKids={newProfile.isKids}
-                size="xl"
+                size="lg"
               />
             </div>
             <div className="space-y-2">
@@ -209,7 +209,7 @@ export default function ProfileSelection() {
                 data-testid="input-profile-name"
               />
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Label>Choose Avatar</Label>
               <AvatarPicker
                 selectedIndex={newProfile.avatarIndex}
@@ -259,18 +259,18 @@ export default function ProfileSelection() {
 
       {/* Edit Profile Dialog */}
       <Dialog open={!!editingProfile} onOpenChange={() => setEditingProfile(null)}>
-        <DialogContent className="sm:max-w-md" data-testid="edit-profile-dialog">
+        <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto" data-testid="edit-profile-dialog">
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>Update your profile name and avatar</DialogDescription>
           </DialogHeader>
           {editingProfile && (
-            <div className="space-y-6 py-4">
+            <div className="space-y-4 py-2">
               <div className="flex justify-center">
                 <ProfileAvatar
                   avatarIndex={editingProfile.avatarIndex}
                   isKids={editingProfile.isKids}
-                  size="xl"
+                  size="lg"
                 />
               </div>
               <div className="space-y-2">
@@ -286,7 +286,7 @@ export default function ProfileSelection() {
                   data-testid="input-edit-profile-name"
                 />
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Label>Choose Avatar</Label>
                 <AvatarPicker
                   selectedIndex={editingProfile.avatarIndex}

@@ -225,7 +225,7 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar */}
-        <div className="flex items-center gap-4 p-4 bg-gradient-to-b from-black/80 to-transparent">
+        <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4 bg-gradient-to-b from-black/80 to-transparent">
           <Button
             size="icon"
             variant="ghost"
@@ -233,15 +233,15 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
             className="text-white hover:bg-white/20"
             data-testid="button-back"
           >
-            <ArrowLeft className="w-6 h-6" />
+            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </Button>
-          <h1 className="text-xl font-semibold text-white">{movie.title}</h1>
+          <h1 className="text-base sm:text-xl font-semibold text-white line-clamp-1">{movie.title}</h1>
         </div>
 
         {/* Bottom Controls */}
-        <div className="video-gradient-overlay p-4 pb-6">
+        <div className="video-gradient-overlay p-2 sm:p-4 pb-4 sm:pb-6">
           {/* Progress Bar */}
-          <div className="mb-4">
+          <div className="mb-2 sm:mb-4">
             <Slider
               value={[currentTime]}
               max={duration || 100}
@@ -250,25 +250,25 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
               className="cursor-pointer"
               data-testid="video-progress-slider"
             />
-            <div className="flex justify-between text-xs text-gray-300 mt-1">
+            <div className="flex justify-between text-[10px] sm:text-xs text-gray-300 mt-1">
               <span data-testid="current-time">{formatTime(currentTime)}</span>
               <span data-testid="duration">{formatTime(duration)}</span>
             </div>
           </div>
 
           {/* Control Buttons */}
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            <div className="flex items-center gap-1 sm:gap-2">
               {/* Skip Back 10s */}
               <Button
                 size="icon"
                 variant="ghost"
                 onClick={() => skip(-10)}
-                className="text-white hover:bg-white/20 relative"
+                className="text-white hover:bg-white/20 relative h-8 w-8 sm:h-9 sm:w-9"
                 data-testid="button-skip-back"
               >
-                <RotateCcw className="w-6 h-6" />
-                <span className="absolute text-[10px] font-bold">10</span>
+                <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="absolute text-[8px] sm:text-[10px] font-bold">10</span>
               </Button>
 
               {/* Play/Pause */}
@@ -276,13 +276,13 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
                 size="icon"
                 variant="ghost"
                 onClick={togglePlay}
-                className="text-white hover:bg-white/20 w-12 h-12"
+                className="text-white hover:bg-white/20 w-10 h-10 sm:w-12 sm:h-12"
                 data-testid="button-play-pause"
               >
                 {isPlaying ? (
-                  <Pause className="w-8 h-8" />
+                  <Pause className="w-6 h-6 sm:w-8 sm:h-8" />
                 ) : (
-                  <Play className="w-8 h-8 ml-1" />
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 ml-0.5 sm:ml-1" />
                 )}
               </Button>
 
@@ -291,15 +291,15 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
                 size="icon"
                 variant="ghost"
                 onClick={() => skip(10)}
-                className="text-white hover:bg-white/20 relative"
+                className="text-white hover:bg-white/20 relative h-8 w-8 sm:h-9 sm:w-9"
                 data-testid="button-skip-forward"
               >
-                <RotateCw className="w-6 h-6" />
-                <span className="absolute text-[10px] font-bold">10</span>
+                <RotateCw className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="absolute text-[8px] sm:text-[10px] font-bold">10</span>
               </Button>
 
-              {/* Volume */}
-              <div className="flex items-center gap-2 ml-4">
+              {/* Volume - hidden on mobile */}
+              <div className="hidden sm:flex items-center gap-2 ml-4">
                 <Button
                   size="icon"
                   variant="ghost"
@@ -328,18 +328,32 @@ export function VideoPlayer({ movie, onBack }: VideoPlayerProps) {
             </div>
 
             {/* Right Controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
+              {/* Mute button visible on mobile */}
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={toggleMute}
+                className="sm:hidden text-white hover:bg-white/20 h-8 w-8"
+                data-testid="button-mute-mobile"
+              >
+                {isMuted || volume === 0 ? (
+                  <VolumeX className="w-5 h-5" />
+                ) : (
+                  <Volume2 className="w-5 h-5" />
+                )}
+              </Button>
               <Button
                 size="icon"
                 variant="ghost"
                 onClick={toggleFullscreen}
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 h-8 w-8 sm:h-9 sm:w-9"
                 data-testid="button-fullscreen"
               >
                 {isFullscreen ? (
-                  <Minimize className="w-6 h-6" />
+                  <Minimize className="w-5 h-5 sm:w-6 sm:h-6" />
                 ) : (
-                  <Maximize className="w-6 h-6" />
+                  <Maximize className="w-5 h-5 sm:w-6 sm:h-6" />
                 )}
               </Button>
             </div>

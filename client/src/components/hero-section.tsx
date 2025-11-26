@@ -16,18 +16,18 @@ export function HeroSection({ movie, onPlay, onInfo, isKidsMode = false }: HeroS
     return (
       <div
         className={cn(
-          "relative h-[70vh] flex items-center justify-center",
+          "relative h-[50vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center",
           isKidsMode
             ? "bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400"
             : "bg-gradient-to-br from-card via-background to-card"
         )}
         data-testid="hero-section-empty"
       >
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
+        <div className="text-center px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             {isKidsMode ? "Welcome to Kids Zone!" : "No Movies Found"}
           </h2>
-          <p className="text-muted-foreground max-w-md">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-md">
             {isKidsMode
               ? "Add some kid-friendly movies to get started!"
               : "Scan your movie folder to discover your collection"
@@ -39,7 +39,7 @@ export function HeroSection({ movie, onPlay, onInfo, isKidsMode = false }: HeroS
   }
 
   return (
-    <div className="relative h-[70vh] overflow-hidden" data-testid="hero-section">
+    <div className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] overflow-hidden" data-testid="hero-section">
       {/* Background Image */}
       <div className="absolute inset-0">
         {movie.posterUrl ? (
@@ -64,12 +64,12 @@ export function HeroSection({ movie, onPlay, onInfo, isKidsMode = false }: HeroS
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex items-center px-4 lg:px-8">
-        <div className="max-w-2xl space-y-4">
+      <div className="relative h-full flex items-end sm:items-center px-4 lg:px-8 pb-6 sm:pb-0">
+        <div className="max-w-2xl space-y-2 sm:space-y-4">
           {/* Title */}
           <h1
             className={cn(
-              "text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg",
+              "text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg",
               isKidsMode && "text-yellow-300"
             )}
             data-testid="hero-title"
@@ -78,7 +78,7 @@ export function HeroSection({ movie, onPlay, onInfo, isKidsMode = false }: HeroS
           </h1>
 
           {/* Metadata */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <Badge
               className={cn(
                 "text-sm font-bold border-0",
@@ -115,31 +115,31 @@ export function HeroSection({ movie, onPlay, onInfo, isKidsMode = false }: HeroS
 
           {/* Description */}
           {movie.description && (
-            <p className="text-lg text-gray-200 line-clamp-3 max-w-xl">
+            <p className="hidden sm:block text-base md:text-lg text-gray-200 line-clamp-2 md:line-clamp-3 max-w-xl">
               {movie.description}
             </p>
           )}
 
           {/* Actions */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex gap-2 sm:gap-4 pt-2 sm:pt-4">
             <Button
-              size="lg"
+              size="default"
               onClick={() => onPlay(movie)}
-              className="px-8"
+              className="px-4 sm:px-8"
               data-testid="hero-play-button"
             >
-              <Play className="w-5 h-5 mr-2" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
               Play
             </Button>
             <Button
-              size="lg"
+              size="default"
               variant="secondary"
               onClick={() => onInfo(movie)}
-              className="px-8 bg-white/20 text-white border-0 hover:bg-white/30"
+              className="px-4 sm:px-8 bg-white/20 text-white border-0 hover:bg-white/30"
               data-testid="hero-info-button"
             >
-              <Info className="w-5 h-5 mr-2" />
-              More Info
+              <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">More </span>Info
             </Button>
           </div>
         </div>

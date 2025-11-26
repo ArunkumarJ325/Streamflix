@@ -82,7 +82,7 @@ export function Navbar({ onSearch, onSwitchProfile, onKidsSection, isKidsSection
             <div
               className={cn(
                 "flex items-center transition-all duration-300",
-                searchOpen ? "w-64" : "w-10"
+                searchOpen ? "w-40 sm:w-56 md:w-64" : "w-10"
               )}
             >
               {searchOpen ? (
