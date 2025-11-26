@@ -86,14 +86,14 @@ export function Navbar({ onSearch, onSwitchProfile, onKidsSection, isKidsSection
               )}
             >
               {searchOpen ? (
-                <div className="relative w-full">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <div className="relative w-full h-9">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                   <Input
                     type="search"
                     placeholder="Search movies..."
                     value={searchQuery}
                     onChange={(e) => handleSearchChange(e.target.value)}
-                    className="pl-10 pr-10 bg-black/50 border-white/30 text-white placeholder:text-gray-400"
+                    className="w-full h-9 pl-9 pr-9 bg-black/50 border-white/30 text-white placeholder:text-gray-400"
                     autoFocus
                     data-testid="input-search"
                   />
@@ -101,7 +101,7 @@ export function Navbar({ onSearch, onSwitchProfile, onKidsSection, isKidsSection
                     type="button"
                     size="icon"
                     variant="ghost"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 h-9 w-9"
                     onClick={() => {
                       setSearchOpen(false);
                       setSearchQuery("");
