@@ -1,18 +1,55 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
+import { useState, useEffect } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
+import { ProfileProvider, useProfile } from "@/lib/profile-context";
+import ProfileSelection from "@/pages/profile-selection";
+import Browse from "@/pages/browse";
+import KidsSection from "@/pages/kids-section";
 
-function Router() {
+type AppView = "profile-selection" | "browse" | "kids";
+
+function AppContent() {
+  const { currentProfile, setCurrentProfile } = useProfile();
+  const [view, setView] = useState<AppView>("profile-selection");
+
+  useEffect(() => {
+    if (currentProfile && view === "profile-selection") {
+      setView("browse");
+    }
+  }, [currentProfile]);
+
+  const handleSwitchProfile = () => {
+    setCurrentProfile(null);
+    setView("profile-selection");
+  };
+
+  const handleGoToKids = () => {
+    setView("kids");
+  };
+
+  // If no profile selected, show profile selection
+  if (!currentProfile || view === "profile-selection") {
+    return <ProfileSelection />;
+  }
+
+  // If viewing kids section
+  if (view === "kids") {
+    return (
+      <KidsSection
+        onBack={() => setView("browse")}
+        onSwitchProfile={handleSwitchProfile}
+      />
+    );
+  }
+
+  // Main browse view
   return (
-    <Switch>
-      {/* Add pages below */}
-      {/* <Route path="/" component={Home}/> */}
-      {/* Fallback to 404 */}
-      <Route component={NotFound} />
-    </Switch>
+    <Browse
+      onSwitchProfile={handleSwitchProfile}
+      onGoToKids={handleGoToKids}
+    />
   );
 }
 
@@ -20,8 +57,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
+        <ProfileProvider>
+          <AppContent />
+          <Toaster />
+        </ProfileProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
