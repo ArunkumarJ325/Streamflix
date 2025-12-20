@@ -57,7 +57,7 @@ Respond with JSON only.`;
     });
 
     const rawJson = response.text;
-    
+
     if (rawJson) {
       const data: MovieMetadata = JSON.parse(rawJson);
       return {
@@ -88,7 +88,7 @@ Respond with JSON only.`;
 function cleanFileName(fileName: string): string {
   // Remove file extension
   let title = fileName.replace(/\.[^/.]+$/, "");
-  
+
   // Remove common patterns
   title = title
     .replace(/\[(.*?)\]/g, "") // Remove brackets content
@@ -98,7 +98,7 @@ function cleanFileName(fileName: string): string {
     .replace(/[-._]/g, " ") // Replace separators with spaces
     .replace(/\s+/g, " ") // Collapse multiple spaces
     .trim();
-  
+
   // Capitalize first letter of each word
   return title
     .split(" ")
